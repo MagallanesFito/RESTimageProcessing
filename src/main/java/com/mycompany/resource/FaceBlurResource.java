@@ -14,11 +14,12 @@ import javax.ws.rs.core.MediaType;
  *
  * @author adolfo
  */
+
 @Path("faceblur")
 public class FaceBlurResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(){
-        return "Face Blur!";
+        return "Face Blur welcome!";
     }
 }
