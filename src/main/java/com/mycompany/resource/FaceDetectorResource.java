@@ -19,6 +19,10 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import com.mycompany.service.FaceDetectorService;
+import com.mycompany.service.FileManager;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 
 /**
@@ -35,13 +39,14 @@ Resource for facedetection:
 public class FaceDetectorResource {
    
     private FaceDetectorService faceDetectorService = new FaceDetectorService();
-    
+    private FileManager fileManager = new FileManager();
+    private static final String UPLOAD_DIR = "/Uploads";
     //Default message
     @GET
     @Path("/greet")
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(){
-        return "Face Detector welcome";
+        return "hello world!!!!";
     }
     
     @POST
@@ -52,7 +57,16 @@ public class FaceDetectorResource {
             @FormDataParam("file") FormDataContentDisposition fileDetails,
             @Context HttpServletRequest request){
         //return Response.status(Response.Status.OK).build();
-        String response = faceDetectorService.processImage() + " ruta actual: " + System.getProperty("user.dir");
+        String path = request.getServletContext().getRealPath("")
+                        + UPLOAD_DIR + File.separator
+                        + fileDetails.getFileName();
+        //Save imageString response = "imagen guardad!";
+        fileManager.saveFile(uploadedInputStream,path);
+        
+        File uploadedImage = fileManager.loadImage(path);
+        String response = "imagen guardada: " + uploadedImage.getAbsolutePath();
+        //String response = faceDetectorService.detectFaces(uploadedImage);
         return response;
     }
+   
 }

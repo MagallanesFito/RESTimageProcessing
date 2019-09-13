@@ -20,6 +20,6 @@ public class FaceBlurResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(){
-        return "Face Blur welcome!";
+        return "Fasdsdsadsadasdadsdsdaddd!";
     }
 }
